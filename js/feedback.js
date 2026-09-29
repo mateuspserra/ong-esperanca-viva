@@ -1,43 +1,48 @@
-const formVoluntario = document.querySelector("#form-voluntario");
-const toastSucesso = document.querySelector("#toast-sucesso");
-const modalSucesso = document.querySelector("#modal-sucesso");
-const fecharModal = document.querySelector("#fechar-modal");
+window.inicializarFeedback = function inicializarFeedback() {
+  const formVoluntario = document.querySelector("#form-voluntario");
+  const toastSucesso = document.querySelector("#toast-sucesso");
+  const modalSucesso = document.querySelector("#modal-sucesso");
+  const fecharModal = document.querySelector("#fechar-modal");
 
-let toastTimer;
+  if (!formVoluntario) return;
 
-function mostrarToast() {
-  if (!toastSucesso) return;
-  clearTimeout(toastTimer);
-  toastSucesso.classList.add("visivel");
-  toastSucesso.setAttribute("aria-hidden", "false");
+  let toastTimer;
 
-  toastTimer = setTimeout(() => {
-    toastSucesso.classList.remove("visivel");
-    toastSucesso.setAttribute("aria-hidden", "true");
-  }, 4000);
-}
+  function mostrarToast() {
+    if (!toastSucesso) return;
 
-formVoluntario?.addEventListener("submit", (event) => {
-  event.preventDefault();
+    clearTimeout(toastTimer);
+    toastSucesso.classList.add("visivel");
+    toastSucesso.setAttribute("aria-hidden", "false");
 
-  if (!formVoluntario.checkValidity()) {
-    formVoluntario.reportValidity();
-    return;
+    toastTimer = setTimeout(() => {
+      toastSucesso.classList.remove("visivel");
+      toastSucesso.setAttribute("aria-hidden", "true");
+    }, 4000);
   }
 
-  mostrarToast();
+  formVoluntario.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-  if (modalSucesso?.showModal) {
-    modalSucesso.showModal();
-  }
-});
+    if (!formVoluntario.checkValidity()) {
+      formVoluntario.reportValidity();
+      return;
+    }
 
-fecharModal?.addEventListener("click", () => {
-  modalSucesso?.close();
-});
+    mostrarToast();
 
-modalSucesso?.addEventListener("click", (event) => {
-  if (event.target === modalSucesso) {
-    modalSucesso.close();
-  }
-});
+    if (modalSucesso?.showModal) {
+      modalSucesso.showModal();
+    }
+  });
+
+  fecharModal?.addEventListener("click", () => {
+    modalSucesso?.close();
+  });
+
+  modalSucesso?.addEventListener("click", (event) => {
+    if (event.target === modalSucesso) {
+      modalSucesso.close();
+    }
+  });
+};
