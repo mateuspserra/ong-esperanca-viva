@@ -59,6 +59,10 @@ small,.texto-auxiliar{font-size:var(--texto-xs)}
 
 header{
   grid-column:1 / -1;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:var(--espaco-2);
   background:var(--cor-primaria-escura);
   color:var(--cor-superficie);
   padding:var(--espaco-6) var(--espaco-4);
@@ -72,7 +76,9 @@ nav ul{
   margin:0;
   padding:0;
   display:flex;
-  flex-wrap:wrap;
+  flex-flow:row wrap;
+  align-items:center;
+  justify-content:flex-start;
   gap:var(--espaco-4);
 }
 
@@ -157,7 +163,10 @@ th{
 }
 
 .botao,button{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--espaco-2);
   background:var(--cor-primaria);
   color:var(--cor-superficie);
   border:0;
@@ -180,7 +189,25 @@ textarea:focus{
   outline-offset:2px;
 }
 
-address{font-style:normal}
+address{
+  font-style:normal;
+  display:flex;
+  flex-direction:column;
+  gap:var(--espaco-2);
+}
+
+address p{margin:0}
+
+#chamada{
+  display:flex;
+  flex-flow:row wrap;
+  align-items:center;
+  gap:var(--espaco-4);
+}
+
+#chamada h2{flex:1 0 100%;margin-bottom:0}
+#chamada p{flex:1 1 18rem;margin:0}
+#chamada .botao{flex:0 0 auto}
 
 form{
   display:grid;
@@ -211,11 +238,19 @@ label{
   font-weight:bold;
 }
 
+.grupo-opcoes{
+  display:flex;
+  flex-flow:row wrap;
+  align-items:center;
+  gap:var(--espaco-2) var(--espaco-4);
+}
+
 .opcao{
   display:inline-flex;
   align-items:center;
+  justify-content:flex-start;
   gap:var(--espaco-1);
-  margin-right:var(--espaco-4);
+  margin:0;
   font-weight:normal;
 }
 
@@ -238,6 +273,9 @@ input:invalid:not(:placeholder-shown){border-color:var(--cor-perigo)}
 
 footer{
   grid-column:1 / -1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:var(--cor-primaria-escura);
   color:var(--cor-superficie);
   text-align:center;
