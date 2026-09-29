@@ -1,5 +1,71 @@
 const app = document.querySelector("#app");
 
+const projetosDinamicos = [
+  {
+    titulo: "Material escolar",
+    categoria: "Educação",
+    classeBadge: "badge-educacao",
+    descricao: "Arrecadamos cadernos, lápis e mochilas para o início do ano letivo."
+  },
+  {
+    titulo: "Cestas básicas",
+    categoria: "Doação",
+    classeBadge: "badge-doacao",
+    descricao: "Alimentos não perecíveis são entregues mensalmente a famílias cadastradas."
+  }
+];
+
+const estados = [
+  ["MA", "Maranhão"],
+  ["PA", "Pará"],
+  ["PI", "Piauí"],
+  ["CE", "Ceará"],
+  ["SP", "São Paulo"],
+  ["RJ", "Rio de Janeiro"],
+  ["OU", "Outro"]
+];
+
+const turnos = [
+  ["manha", "Manhã"],
+  ["tarde", "Tarde"],
+  ["noite", "Noite"]
+];
+
+const areasInteresse = [
+  ["reforco", "Reforço escolar"],
+  ["arte", "Arte e cultura"],
+  ["eventos", "Eventos"]
+];
+
+function gerarCardsProjetos() {
+  return projetosDinamicos
+    .map((projeto) => `
+      <article class="card">
+        <span class="badge ${projeto.classeBadge}">${projeto.categoria}</span>
+        <h3>${projeto.titulo}</h3>
+        <p>${projeto.descricao}</p>
+      </article>
+    `)
+    .join("");
+}
+
+function gerarOpcoesSelect(lista) {
+  return lista
+    .map(([valor, rotulo]) => `<option value="${valor}">${rotulo}</option>`)
+    .join("");
+}
+
+function gerarOpcoesMarcacao(lista, tipo, nome, obrigatorio = false) {
+  return lista
+    .map(([valor, rotulo], indice) => `
+      <label class="opcao">
+        <input type="${tipo}" name="${nome}" value="${valor}" ${obrigatorio && indice === 0 ? "required" : ""}>
+        ${rotulo}
+      </label>
+    `)
+    .join("");
+}
+
 const paginas = {
   inicio: {
     titulo: "Página inicial | ONG Esperança Viva",
@@ -60,17 +126,7 @@ const paginas = {
         </div>
 
         <div class="cards-projetos">
-          <article class="card">
-            <span class="badge badge-educacao">Educação</span>
-            <h3>Material escolar</h3>
-            <p>Arrecadamos cadernos, lápis e mochilas para o início do ano letivo.</p>
-          </article>
-
-          <article class="card">
-            <span class="badge badge-doacao">Doação</span>
-            <h3>Cestas básicas</h3>
-            <p>Alimentos não perecíveis são entregues mensalmente a famílias cadastradas.</p>
-          </article>
+          ${gerarCardsProjetos()}
 
           <article class="card card-destaque">
             <h3>Como doar</h3>
@@ -143,13 +199,7 @@ const paginas = {
             <label for="estado">Estado</label>
             <select id="estado" name="estado" required>
               <option value="">Selecione</option>
-              <option value="MA">Maranhão</option>
-              <option value="PA">Pará</option>
-              <option value="PI">Piauí</option>
-              <option value="CE">Ceará</option>
-              <option value="SP">São Paulo</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="OU">Outro</option>
+              ${gerarOpcoesSelect(estados)}
             </select>
           </fieldset>
 
@@ -159,18 +209,14 @@ const paginas = {
             <fieldset>
               <legend>Disponibilidade</legend>
               <div class="grupo-opcoes">
-                <label class="opcao"><input type="radio" name="turno" value="manha" required> Manhã</label>
-                <label class="opcao"><input type="radio" name="turno" value="tarde"> Tarde</label>
-                <label class="opcao"><input type="radio" name="turno" value="noite"> Noite</label>
+                ${gerarOpcoesMarcacao(turnos, "radio", "turno", true)}
               </div>
             </fieldset>
 
             <fieldset>
               <legend>Áreas de interesse</legend>
               <div class="grupo-opcoes">
-                <label class="opcao"><input type="checkbox" name="area" value="reforco"> Reforço escolar</label>
-                <label class="opcao"><input type="checkbox" name="area" value="arte"> Arte e cultura</label>
-                <label class="opcao"><input type="checkbox" name="area" value="eventos"> Eventos</label>
+                ${gerarOpcoesMarcacao(areasInteresse, "checkbox", "area")}
               </div>
             </fieldset>
 
