@@ -171,3 +171,10 @@ O modo alto contraste utiliza fundo preto, texto branco, títulos amarelos e foc
 O Vite foi configurado em `vite.config.js` com `minify: "esbuild"`, `cssMinify: "esbuild"`, `sourcemap: false` e `outDir: "dist"`. Durante `npm run build`, os módulos ES6 são resolvidos e agrupados, comentários e espaços desnecessários são removidos e os ficheiros CSS/JS são minificados para reduzir a transferência em rede.
 
 A minificação deve ser validada após cada alteração funcional, comparando o comportamento da build com o modo de desenvolvimento, principalmente em rotas SPA, eventos delegados, expressões regulares, Template Literals e importações entre módulos.
+
+
+## Otimização de imagens
+
+A imagem principal é fornecida em JPEG como fallback e WebP como formato preferencial por meio de `<picture>`. O JPEG possui 15.449 bytes e o WebP 10.278 bytes, uma redução de aproximadamente 33,5% para o mesmo recurso. Com o logo, o payload local de imagens cai de cerca de 16,8 KB para 11,6 KB em navegadores com WebP, redução aproximada de 30,8%.
+
+A marcação utiliza `srcset`, `sizes`, dimensões intrínsecas `width`/`height`, `loading="lazy"` e `decoding="async"`. O CSS mantém `max-width:100%` e `height:auto`, evitando distorções e ajustando a imagem ao viewport.
