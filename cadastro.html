@@ -62,15 +62,19 @@
           <legend>Interesse no voluntariado</legend>
           <fieldset>
             <legend>Disponibilidade</legend>
-            <label class="opcao"><input type="radio" name="turno" value="manha" required> Manhã</label>
-            <label class="opcao"><input type="radio" name="turno" value="tarde"> Tarde</label>
-            <label class="opcao"><input type="radio" name="turno" value="noite"> Noite</label>
+            <div class="grupo-opcoes">
+              <label class="opcao"><input type="radio" name="turno" value="manha" required> Manhã</label>
+              <label class="opcao"><input type="radio" name="turno" value="tarde"> Tarde</label>
+              <label class="opcao"><input type="radio" name="turno" value="noite"> Noite</label>
+            </div>
           </fieldset>
           <fieldset>
             <legend>Áreas de interesse</legend>
-            <label class="opcao"><input type="checkbox" name="area" value="reforco"> Reforço escolar</label>
-            <label class="opcao"><input type="checkbox" name="area" value="arte"> Arte e cultura</label>
-            <label class="opcao"><input type="checkbox" name="area" value="eventos"> Eventos</label>
+            <div class="grupo-opcoes">
+              <label class="opcao"><input type="checkbox" name="area" value="reforco"> Reforço escolar</label>
+              <label class="opcao"><input type="checkbox" name="area" value="arte"> Arte e cultura</label>
+              <label class="opcao"><input type="checkbox" name="area" value="eventos"> Eventos</label>
+            </div>
           </fieldset>
           <label for="mensagem">Mensagem</label>
           <textarea id="mensagem" name="mensagem" rows="4" maxlength="500"></textarea>
