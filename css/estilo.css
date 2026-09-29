@@ -240,7 +240,15 @@ img{
 
 section img{max-width:26rem}
 
-article{
+.cards-projetos{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:var(--espaco-4);
+  margin:var(--espaco-4) 0;
+}
+
+.card{
+  grid-column:1 / -1;
   padding:var(--espaco-4);
   border:1px solid var(--cor-borda);
   border-radius:var(--raio);
@@ -248,10 +256,17 @@ article{
   transition:box-shadow .2s ease,transform .2s ease,border-color .2s ease;
 }
 
-article:hover{
+.card h3{margin-top:var(--espaco-2)}
+
+.card:hover,
+.card:focus-within{
   border-color:var(--cor-secundaria);
   box-shadow:0 .35rem 1rem rgba(0,0,0,.1);
   transform:translateY(-2px);
+}
+
+.card-destaque{
+  border-left:4px solid var(--cor-primaria);
 }
 
 .badge{
@@ -620,6 +635,9 @@ footer{
 
 /* Breakpoint 2 — tablets compactos */
 @media(min-width:640px){
+  .cards-projetos .card{grid-column:span 6}
+  .cards-projetos .card-destaque{grid-column:1 / -1}
+
   .duas{
     display:grid;
     grid-template-columns:repeat(12,minmax(0,1fr));
