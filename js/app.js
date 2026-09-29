@@ -245,11 +245,11 @@ const paginas = {
         </div>
       </div>
 
-      <dialog id="modal-sucesso" class="modal-feedback" aria-labelledby="titulo-modal">
+      <dialog id="modal-sucesso" class="modal-feedback" aria-labelledby="titulo-modal" aria-describedby="descricao-modal">
         <div class="modal-conteudo">
           <span class="badge badge-sucesso">Sucesso</span>
           <h2 id="titulo-modal">Cadastro pronto para envio</h2>
-          <p>O formulário foi validado no navegador. Em uma integração real, os dados seriam enviados ao back-end neste momento.</p>
+          <p id="descricao-modal">O formulário foi validado no navegador. Em uma integração real, os dados seriam enviados ao back-end neste momento.</p>
           <button id="fechar-modal" type="button">Entendi</button>
         </div>
       </dialog>
