@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../css/estilo.css">
 </head>
 <body>
+  <a class="skip-link" href="#app">Pular para o conteúdo principal</a>
   <header>
     <h1>ONG Esperança Viva</h1>
     <p>Transformando vidas por meio da educação e da solidariedade.</p>
@@ -20,10 +21,10 @@
       <ul id="menu-principal" class="menu-principal">
         <li><a href="#/inicio" data-rota="inicio">Início</a></li>
         <li class="tem-submenu">
-          <button class="submenu-toggle" type="button" aria-expanded="false">
+          <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-projetos">
             Projetos <span aria-hidden="true">▾</span>
           </button>
-          <ul class="submenu" aria-label="Submenu Projetos">
+          <ul id="submenu-projetos" class="submenu" aria-label="Submenu Projetos">
             <li><a href="#/projetos" data-rota="projetos">Visão geral</a></li>
             <li><a href="#/projetos/voluntariado" data-rota="projetos">Voluntariado</a></li>
             <li><a href="#/projetos/doacoes" data-rota="projetos">Campanhas de doação</a></li>
