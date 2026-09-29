@@ -1,9 +1,11 @@
 import { inicializarMenu } from "./menu.js";
 import { inicializarFeedback, restaurarPreferenciasVoluntariado } from "./feedback.js";
 import { lerEstadoApp, salvarEstadoApp } from "./storage.js";
+import { inicializarTema } from "./theme.js";
 
 const app = document.querySelector("#app");
 
+inicializarTema();
 inicializarMenu();
 inicializarFeedback(app);
 
