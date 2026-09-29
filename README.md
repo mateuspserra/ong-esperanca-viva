@@ -79,7 +79,25 @@ Depois acesse `http://localhost:8000/html/` no navegador.
 
 ## Dependências, build e testes
 
-Não há dependências NPM nem etapa de build: os arquivos HTML, CSS e JavaScript são executados diretamente pelo navegador. A única biblioteca externa é Day.js 1.x, carregada via CDN.
+O projeto utiliza **Vite** como bundler de desenvolvimento e produção. Após clonar o repositório, instale a dependência de desenvolvimento com:
+
+```bash
+npm install
+```
+
+Para desenvolvimento:
+
+```bash
+npm run dev
+```
+
+Para gerar a build de produção:
+
+```bash
+npm run build
+```
+
+A saída é criada em `dist/`. O `vite.config.js` define `html/index.html` como entrada, ativa minificação com esbuild para JavaScript e CSS, remove sourcemaps da entrega e gera assets otimizados. O Day.js continua sendo carregado via CDN.
 
 Para validação manual:
 1. Abra o Console e o painel Network das DevTools e confirme ausência de erros.
@@ -146,3 +164,10 @@ O arquivo `CHANGELOG.md` registra funcionalidades e correções por versão. O a
 A interface oferece três perfis: claro, escuro e alto contraste. A preferência é aplicada com `data-tema` no elemento `<html>`, reutilizando as variáveis do Design System. A escolha é persistida no `localStorage`. Quando ainda não existe preferência salva, `theme.js` consulta `prefers-contrast: more` e `prefers-color-scheme: dark` para respeitar as configurações do sistema.
 
 O modo alto contraste utiliza fundo preto, texto branco, títulos amarelos e foco amarelo/ciano. O projeto também respeita `prefers-reduced-motion` para reduzir transições.
+
+
+## Build de produção e minificação
+
+O Vite foi configurado em `vite.config.js` com `minify: "esbuild"`, `cssMinify: "esbuild"`, `sourcemap: false` e `outDir: "dist"`. Durante `npm run build`, os módulos ES6 são resolvidos e agrupados, comentários e espaços desnecessários são removidos e os ficheiros CSS/JS são minificados para reduzir a transferência em rede.
+
+A minificação deve ser validada após cada alteração funcional, comparando o comportamento da build com o modo de desenvolvimento, principalmente em rotas SPA, eventos delegados, expressões regulares, Template Literals e importações entre módulos.
