@@ -1,4 +1,4 @@
-const appFeedback = document.querySelector("#app");
+import { lerEstadoApp, salvarEstadoApp } from "./storage.js";
 
 let toastTimer;
 
@@ -14,16 +14,16 @@ function coletarPreferenciasVoluntariado(form) {
 function salvarPreferenciasVoluntariado(form) {
   if (!form) return;
 
-  window.storageApp?.salvar({
+  salvarEstadoApp({
     preferenciasVoluntariado: coletarPreferenciasVoluntariado(form)
   });
 }
 
-window.restaurarPreferenciasVoluntariado = function restaurarPreferenciasVoluntariado() {
+export function restaurarPreferenciasVoluntariado() {
   const form = document.querySelector("#form-voluntario");
   if (!form) return;
 
-  const estado = window.storageApp?.ler();
+  const estado = lerEstadoApp();
   const preferencias = estado?.preferenciasVoluntariado;
   if (!preferencias) return;
 
@@ -40,7 +40,7 @@ window.restaurarPreferenciasVoluntariado = function restaurarPreferenciasVolunta
   form.querySelectorAll('[name="area"]').forEach((campo) => {
     campo.checked = areasSalvas.includes(campo.value);
   });
-};
+}
 
 const regras = {
   nome: {
@@ -258,56 +258,59 @@ function validarFormulario(form) {
   return valido;
 }
 
-/* Event delegation: os campos são criados dinamicamente pela SPA. */
-appFeedback?.addEventListener("input", (event) => {
-  validarCampo(event.target);
+export function inicializarFeedback(appFeedback) {
+  if (!appFeedback) return;
 
-  const form = event.target.closest("#form-voluntario");
-  if (form && ["estado", "turno", "area"].includes(event.target.name)) {
-    salvarPreferenciasVoluntariado(form);
-  }
-});
-
-appFeedback?.addEventListener("change", (event) => {
-  validarCampo(event.target);
-
-  const form = event.target.closest("#form-voluntario");
-  if (form && ["estado", "turno", "area"].includes(event.target.name)) {
-    salvarPreferenciasVoluntariado(form);
-  }
-});
-
-appFeedback?.addEventListener("focusout", (event) => {
-  validarCampo(event.target);
-});
-
-appFeedback?.addEventListener("submit", (event) => {
-  const form = event.target.closest("#form-voluntario");
-  if (!form) return;
-
-  event.preventDefault();
-
-  if (!validarFormulario(form)) {
-    return;
-  }
-
-  mostrarToast();
-
-  const modal = document.querySelector("#modal-sucesso");
-  if (modal?.showModal) {
-    modal.showModal();
-  }
-});
-
-appFeedback?.addEventListener("click", (event) => {
-  const modal = document.querySelector("#modal-sucesso");
-
-  if (event.target.closest("#fechar-modal")) {
-    modal?.close();
-    return;
-  }
-
-  if (event.target === modal) {
-    modal.close();
-  }
-});
+  appFeedback?.addEventListener("input", (event) => {
+    validarCampo(event.target);
+  
+    const form = event.target.closest("#form-voluntario");
+    if (form && ["estado", "turno", "area"].includes(event.target.name)) {
+      salvarPreferenciasVoluntariado(form);
+    }
+  });
+  
+  appFeedback?.addEventListener("change", (event) => {
+    validarCampo(event.target);
+  
+    const form = event.target.closest("#form-voluntario");
+    if (form && ["estado", "turno", "area"].includes(event.target.name)) {
+      salvarPreferenciasVoluntariado(form);
+    }
+  });
+  
+  appFeedback?.addEventListener("focusout", (event) => {
+    validarCampo(event.target);
+  });
+  
+  appFeedback?.addEventListener("submit", (event) => {
+    const form = event.target.closest("#form-voluntario");
+    if (!form) return;
+  
+    event.preventDefault();
+  
+    if (!validarFormulario(form)) {
+      return;
+    }
+  
+    mostrarToast();
+  
+    const modal = document.querySelector("#modal-sucesso");
+    if (modal?.showModal) {
+      modal.showModal();
+    }
+  });
+  
+  appFeedback?.addEventListener("click", (event) => {
+    const modal = document.querySelector("#modal-sucesso");
+  
+    if (event.target.closest("#fechar-modal")) {
+      modal?.close();
+      return;
+    }
+  
+    if (event.target === modal) {
+      modal.close();
+    }
+  });
+}
