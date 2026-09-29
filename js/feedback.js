@@ -2,6 +2,46 @@ const appFeedback = document.querySelector("#app");
 
 let toastTimer;
 
+
+function coletarPreferenciasVoluntariado(form) {
+  return {
+    estado: form.querySelector('[name="estado"]')?.value || "",
+    turno: form.querySelector('[name="turno"]:checked')?.value || "",
+    areas: [...form.querySelectorAll('[name="area"]:checked')].map((item) => item.value)
+  };
+}
+
+function salvarPreferenciasVoluntariado(form) {
+  if (!form) return;
+
+  window.storageApp?.salvar({
+    preferenciasVoluntariado: coletarPreferenciasVoluntariado(form)
+  });
+}
+
+window.restaurarPreferenciasVoluntariado = function restaurarPreferenciasVoluntariado() {
+  const form = document.querySelector("#form-voluntario");
+  if (!form) return;
+
+  const estado = window.storageApp?.ler();
+  const preferencias = estado?.preferenciasVoluntariado;
+  if (!preferencias) return;
+
+  const campoEstado = form.querySelector('[name="estado"]');
+  if (campoEstado) {
+    campoEstado.value = preferencias.estado || "";
+  }
+
+  if (preferencias.turno) {
+    form.querySelector(`[name="turno"][value="${preferencias.turno}"]`)?.click();
+  }
+
+  const areasSalvas = Array.isArray(preferencias.areas) ? preferencias.areas : [];
+  form.querySelectorAll('[name="area"]').forEach((campo) => {
+    campo.checked = areasSalvas.includes(campo.value);
+  });
+};
+
 const regras = {
   nome: {
     regex: /^[A-Za-zÀ-ÿ'’-]+(?:\s+[A-Za-zÀ-ÿ'’-]+)+$/,
@@ -207,10 +247,20 @@ function validarFormulario(form) {
 /* Event delegation: os campos são criados dinamicamente pela SPA. */
 appFeedback?.addEventListener("input", (event) => {
   validarCampo(event.target);
+
+  const form = event.target.closest("#form-voluntario");
+  if (form && ["estado", "turno", "area"].includes(event.target.name)) {
+    salvarPreferenciasVoluntariado(form);
+  }
 });
 
 appFeedback?.addEventListener("change", (event) => {
   validarCampo(event.target);
+
+  const form = event.target.closest("#form-voluntario");
+  if (form && ["estado", "turno", "area"].includes(event.target.name)) {
+    salvarPreferenciasVoluntariado(form);
+  }
 });
 
 appFeedback?.addEventListener("focusout", (event) => {
