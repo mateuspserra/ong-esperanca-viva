@@ -115,7 +115,7 @@ function obterOuCriarMensagem(campo) {
     mensagem = document.createElement("small");
     mensagem.id = id;
     mensagem.className = "mensagem-campo";
-    mensagem.setAttribute("role", "alert");
+    mensagem.setAttribute("role", "status");
     mensagem.setAttribute("aria-live", "polite");
     obterAlvoMensagem(campo)?.insertAdjacentElement("afterend", mensagem);
   }
