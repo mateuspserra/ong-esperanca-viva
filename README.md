@@ -1,6 +1,15 @@
 # ONG Esperança Viva
 
-Single Page Application (SPA) institucional em HTML5, CSS e JavaScript, organizada com separação de responsabilidades.
+Single Page Application (SPA) institucional em HTML5, CSS e JavaScript, organizada com separação de responsabilidades. O projeto demonstra navegação sem recarregamento completo, componentes responsivos, validação de formulários, persistência local e arquitetura modular para uma organização do terceiro setor.
+
+## Tecnologias utilizadas
+
+- HTML5 semântico.
+- CSS3 com Design System, Grid de 12 colunas, Flexbox e cinco breakpoints.
+- JavaScript ES6+ com Modules, DOM API, eventos e Template Literals.
+- Web Storage API (`localStorage`).
+- Day.js 1.x carregado via CDN para validação e comparação de datas.
+- Git/GitHub com GitFlow, Conventional Commits e Semantic Versioning.
 
 ## Estrutura de diretórios
 
@@ -44,17 +53,41 @@ A aplicação usa rotas por hash, como:
 
 A troca de rota dispara `hashchange`. A função `renderizar()` interpreta a rota, limpa o contêiner `#app` com `replaceChildren()` e injeta o novo fragmento HTML com `insertAdjacentHTML()`. Dessa forma, o documento não é recarregado a cada navegação.
 
-## Como visualizar
+## Pré-requisitos
 
-Como o projeto utiliza ES6 Modules (`import`/`export`), execute-o por um servidor HTTP local em vez de abrir o HTML diretamente com `file://`.
+- Navegador moderno com suporte a ES6 Modules, `localStorage` e elemento `dialog`.
+- Git para clonar e acompanhar o histórico do projeto.
+- Python 3 (ou outro servidor HTTP local equivalente) para servir os arquivos.
+- Conexão com a internet apenas para carregar o Day.js via CDN; existe fallback nativo para a validação de datas.
 
-Exemplo com Python, na raiz do projeto:
+## Instalação e execução local
+
+Clone o repositório e entre na pasta do projeto:
+
+```bash
+git clone https://github.com/mateuspserra/ong-esperanca-viva.git
+cd ong-esperanca-viva
+```
+
+Como o projeto utiliza ES6 Modules, não abra o arquivo diretamente com `file://`. Inicie um servidor HTTP na raiz:
 
 ```bash
 python -m http.server 8000
 ```
 
-Depois acesse `http://localhost:8000/html/` no navegador. Isso evita bloqueios de origem/CORS aplicados por navegadores a módulos ES6 carregados diretamente do sistema de arquivos.
+Depois acesse `http://localhost:8000/html/` no navegador.
+
+## Dependências, build e testes
+
+Não há dependências NPM nem etapa de build: os arquivos HTML, CSS e JavaScript são executados diretamente pelo navegador. A única biblioteca externa é Day.js 1.x, carregada via CDN.
+
+Para validação manual:
+1. Abra o Console e o painel Network das DevTools e confirme ausência de erros.
+2. Teste as rotas `#/inicio`, `#/projetos` e `#/cadastro`.
+3. Verifique menu hamburger/dropdown em larguras diferentes.
+4. Teste campos válidos e inválidos do formulário, modal e toast.
+5. Recarregue a página para confirmar a restauração de estado pelo `localStorage`.
+6. Valide a estrutura HTML no W3C Markup Validation Service.
 
 
 ## Persistência local
@@ -88,3 +121,21 @@ Essa separação reduz dependências globais e evita misturar navegação, formu
 ## Registro de validação e depuração
 
 Durante a evolução da SPA foram tratados pontos típicos de depuração: listeners ligados a elementos dinâmicos foram substituídos por event delegation no `#app`; links internos usam `preventDefault()` e roteamento por hash para evitar recarga do documento; leitura e gravação do `localStorage` são protegidas por `try/catch` e estado padrão; a validação de datas testa a disponibilidade do Day.js e possui fallback nativo; e a execução local passou a exigir servidor HTTP por causa dos ES6 Modules.
+
+
+## Versionamento e fluxo Git
+
+O projeto adota **Semantic Versioning (SemVer)** no formato `MAJOR.MINOR.PATCH`. A primeira versão estável é `1.0.0`, registrada em `VERSION` e `CHANGELOG.md`.
+
+O fluxo segue GitFlow:
+- `main`: versões estáveis.
+- `develop`: integração das funcionalidades.
+- `feature/*`: novas funcionalidades.
+- `hotfix/*`: correções urgentes.
+- `release/*`: preparação de lançamentos.
+
+As mensagens seguem **Conventional Commits**, usando prefixos como `feat:`, `fix:`, `docs:` e `chore:`. A release `v1.0.0` foi preparada em `release/v1.0.0` e integrada à `main` por pull request.
+
+## Releases e histórico
+
+O arquivo `CHANGELOG.md` registra funcionalidades e correções por versão. O arquivo `VERSION` mantém a versão atual do projeto. Para novas entregas, alterações compatíveis incrementam MINOR, correções incrementam PATCH e mudanças incompatíveis incrementam MAJOR.
