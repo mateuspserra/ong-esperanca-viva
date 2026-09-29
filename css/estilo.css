@@ -9,7 +9,11 @@
   --cor-texto-suave:#5f625f;
   --cor-borda:#cfc8b8;
   --cor-perigo:#b3261e;
+  --cor-perigo-fundo:#fff1f0;
+  --cor-sucesso:#2e7d32;
+  --cor-sucesso-fundo:#edf7ee;
   --cor-foco:#f2c94c;
+  --cor-desabilitado:#777777;
 
   /* Design System — tipografia */
   --fonte-titulo:"Trebuchet MS",Verdana,sans-serif;
@@ -236,6 +240,20 @@ img{
 
 section img{max-width:26rem}
 
+article{
+  padding:var(--espaco-4);
+  border:1px solid var(--cor-borda);
+  border-radius:var(--raio);
+  background:var(--cor-superficie);
+  transition:box-shadow .2s ease,transform .2s ease,border-color .2s ease;
+}
+
+article:hover{
+  border-color:var(--cor-secundaria);
+  box-shadow:0 .35rem 1rem rgba(0,0,0,.1);
+  transform:translateY(-2px);
+}
+
 table{
   border-collapse:collapse;
   width:100%;
@@ -273,17 +291,63 @@ th{
   font-weight:bold;
   text-decoration:none;
   cursor:pointer;
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .12s ease,
+    opacity .2s ease;
 }
 
-.botao:hover,button:hover{background:var(--cor-primaria-escura)}
+.botao:hover,
+button:hover:not(:disabled){
+  background:var(--cor-primaria-escura);
+  box-shadow:0 .25rem .75rem rgba(0,0,0,.18);
+  transform:translateY(-1px);
+}
 
-a:focus,
-button:focus,
-input:focus,
-select:focus,
-textarea:focus{
+.botao:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
   outline:3px solid var(--cor-foco);
-  outline-offset:2px;
+  outline-offset:3px;
+}
+
+.botao:active,
+button:active:not(:disabled){
+  background:var(--cor-primaria-escura);
+  box-shadow:0 .1rem .25rem rgba(0,0,0,.22);
+  transform:translateY(1px);
+}
+
+button:disabled,
+.botao[aria-disabled="true"]{
+  background:var(--cor-desabilitado);
+  color:var(--cor-superficie);
+  opacity:.55;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none;
+  pointer-events:none;
+}
+
+/* Mantém os controlos da navegação com aparência própria */
+.menu-toggle{
+  background:transparent;
+  border:2px solid var(--cor-superficie);
+}
+
+.submenu-toggle{background:transparent}
+
+.menu-toggle:hover:not(:disabled),
+.submenu-toggle:hover:not(:disabled){
+  background:rgba(255,255,255,.1);
+  box-shadow:none;
+  transform:none;
 }
 
 address{
@@ -359,14 +423,64 @@ select,
 textarea{
   width:100%;
   padding:var(--espaco-2);
-  border:1px solid #888888;
+  border:2px solid #888888;
   border-radius:var(--raio);
   font:inherit;
   background:var(--cor-superficie);
   color:var(--cor-texto);
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background-color .2s ease;
 }
 
-input:invalid:not(:placeholder-shown){border-color:var(--cor-perigo)}
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--cor-primaria);
+  box-shadow:0 0 0 3px rgba(31,95,74,.14);
+}
+
+/* Feedback de sucesso: campo obrigatório preenchido corretamente */
+input:required:valid:not(:placeholder-shown),
+select:required:valid{
+  border-color:var(--cor-sucesso);
+  background:var(--cor-sucesso-fundo);
+}
+
+/* Feedback de erro durante a edição e após interação do utilizador */
+input:required:focus:invalid,
+select:required:focus:invalid,
+textarea:required:focus:invalid,
+input:required:user-invalid,
+select:required:user-invalid,
+textarea:required:user-invalid{
+  border-color:var(--cor-perigo);
+  background:var(--cor-perigo-fundo);
+  box-shadow:0 0 0 3px rgba(179,38,30,.12);
+}
+
+input:required:user-valid,
+select:required:user-valid,
+textarea:required:user-valid{
+  border-color:var(--cor-sucesso);
+  background:var(--cor-sucesso-fundo);
+  box-shadow:0 0 0 3px rgba(46,125,50,.1);
+}
+
+input[type="radio"]:checked,
+input[type="checkbox"]:checked{
+  accent-color:var(--cor-primaria);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled{
+  background:#eeeeee;
+  color:var(--cor-desabilitado);
+  cursor:not-allowed;
+  opacity:.75;
+}
 
 footer{
   grid-column:1 / -1;
