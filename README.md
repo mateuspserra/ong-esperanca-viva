@@ -52,3 +52,8 @@ Abra `html/index.html` no navegador.
 ## Persistência local
 
 O projeto mantém no `localStorage` um objeto de estado com a última rota acessada e preferências não sensíveis do formulário de voluntariado (`estado`, `turno` e `áreas de interesse`). Dados pessoais como CPF, telefone, e-mail, endereço e data de nascimento não são gravados localmente. O objeto é serializado com `JSON.stringify()` e recuperado com `JSON.parse()`.
+
+
+## Biblioteca externa
+
+A aplicação integra **Day.js** via CDN para manipulação e comparação de datas no formulário de voluntariado. O script é carregado antes dos módulos internos e `js/feedback.js` verifica `window.dayjs` antes de utilizá-lo. A validação da data de nascimento usa `dayjs(valor)`, `.isValid()` e `.isAfter(hoje, "day")`. Existe um fallback com `Date` nativo caso o CDN esteja indisponível, evitando que a aplicação principal deixe de funcionar.
