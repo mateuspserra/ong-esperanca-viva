@@ -57,3 +57,21 @@ O projeto mantém no `localStorage` um objeto de estado com a última rota acess
 ## Biblioteca externa
 
 A aplicação integra **Day.js** via CDN para manipulação e comparação de datas no formulário de voluntariado. O script é carregado antes dos módulos internos e `js/feedback.js` verifica `window.dayjs` antes de utilizá-lo. A validação da data de nascimento usa `dayjs(valor)`, `.isValid()` e `.isAfter(hoje, "day")`. Existe um fallback com `Date` nativo caso o CDN esteja indisponível, evitando que a aplicação principal deixe de funcionar.
+
+
+## JavaScript modular
+
+O código usa **ES6 Modules**. O arquivo `js/app.js` é o ponto de entrada carregado com `type="module"` e importa as responsabilidades necessárias:
+
+```javascript
+import { inicializarMenu } from "./menu.js";
+import { inicializarFeedback, restaurarPreferenciasVoluntariado } from "./feedback.js";
+import { lerEstadoApp, salvarEstadoApp } from "./storage.js";
+```
+
+- `menu.js` exporta apenas a inicialização e o comportamento da navegação.
+- `storage.js` exporta apenas leitura e gravação do estado persistido.
+- `feedback.js` importa o armazenamento e exporta validação, feedback e restauração das preferências.
+- `app.js` coordena roteamento, templates, renderização e integração entre os módulos.
+
+Essa separação reduz dependências globais e evita misturar navegação, formulário e persistência no mesmo arquivo.
