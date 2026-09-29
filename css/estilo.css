@@ -616,6 +616,42 @@ textarea:disabled{
   opacity:.75;
 }
 
+.campo-invalido{
+  border-color:var(--cor-perigo) !important;
+  background:var(--cor-perigo-fundo) !important;
+  box-shadow:0 0 0 3px rgba(179,38,30,.12);
+}
+
+.campo-valido{
+  border-color:var(--cor-sucesso) !important;
+  background:var(--cor-sucesso-fundo) !important;
+}
+
+input[type="radio"].campo-invalido,
+input[type="checkbox"].campo-invalido{
+  outline:2px solid var(--cor-perigo);
+  outline-offset:2px;
+}
+
+input[type="radio"].campo-valido,
+input[type="checkbox"].campo-valido{
+  outline:2px solid var(--cor-sucesso);
+  outline-offset:2px;
+}
+
+.mensagem-campo{
+  display:block;
+  min-height:1.25rem;
+  margin-top:var(--espaco-1);
+  font-size:var(--texto-xs);
+  font-family:var(--fonte-titulo);
+  font-weight:bold;
+}
+
+.mensagem-erro{color:var(--cor-perigo)}
+.mensagem-sucesso{color:var(--cor-sucesso)}
+
+
 footer{
   grid-column:1 / -1;
   display:flex;
