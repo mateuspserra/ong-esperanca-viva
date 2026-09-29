@@ -43,6 +43,23 @@
 
 *{box-sizing:border-box}
 
+.skip-link{
+  position:absolute;
+  left:var(--espaco-4);
+  top:var(--espaco-4);
+  z-index:1000;
+  padding:var(--espaco-2) var(--espaco-3);
+  background:var(--cor-superficie);
+  color:var(--cor-primaria-escura);
+  border-radius:var(--raio);
+  transform:translateY(-200%);
+  transition:transform .2s ease;
+}
+
+.skip-link:focus{
+  transform:translateY(0);
+}
+
 body{
   margin:0;
   min-height:100vh;
