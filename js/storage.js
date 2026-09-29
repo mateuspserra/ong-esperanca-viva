@@ -13,7 +13,7 @@ function clonarEstadoPadrao() {
   return JSON.parse(JSON.stringify(ESTADO_PADRAO));
 }
 
-function lerEstadoApp() {
+export function lerEstadoApp() {
   try {
     const bruto = localStorage.getItem(CHAVE_ESTADO_APP);
 
@@ -37,7 +37,7 @@ function lerEstadoApp() {
   }
 }
 
-function salvarEstadoApp(parcial) {
+export function salvarEstadoApp(parcial) {
   try {
     const atual = lerEstadoApp();
     const proximo = {
@@ -56,8 +56,3 @@ function salvarEstadoApp(parcial) {
     return null;
   }
 }
-
-window.storageApp = {
-  ler: lerEstadoApp,
-  salvar: salvarEstadoApp
-};
