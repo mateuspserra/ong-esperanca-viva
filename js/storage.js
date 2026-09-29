@@ -2,6 +2,7 @@ const CHAVE_ESTADO_APP = "ongEsperancaViva:estado";
 
 const ESTADO_PADRAO = {
   ultimaRota: "#/inicio",
+  tema: "",
   preferenciasVoluntariado: {
     estado: "",
     turno: "",
