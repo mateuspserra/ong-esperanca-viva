@@ -139,3 +139,10 @@ As mensagens seguem **Conventional Commits**, usando prefixos como `feat:`, `fix
 ## Releases e histórico
 
 O arquivo `CHANGELOG.md` registra funcionalidades e correções por versão. O arquivo `VERSION` mantém a versão atual do projeto. Para novas entregas, alterações compatíveis incrementam MINOR, correções incrementam PATCH e mudanças incompatíveis incrementam MAJOR.
+
+
+## Modos de cor e contraste
+
+A interface oferece três perfis: claro, escuro e alto contraste. A preferência é aplicada com `data-tema` no elemento `<html>`, reutilizando as variáveis do Design System. A escolha é persistida no `localStorage`. Quando ainda não existe preferência salva, `theme.js` consulta `prefers-contrast: more` e `prefers-color-scheme: dark` para respeitar as configurações do sistema.
+
+O modo alto contraste utiliza fundo preto, texto branco, títulos amarelos e foco amarelo/ciano. O projeto também respeita `prefers-reduced-motion` para reduzir transições.
