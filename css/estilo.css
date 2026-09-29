@@ -254,6 +254,125 @@ article:hover{
   transform:translateY(-2px);
 }
 
+.badge{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  padding:.2rem .55rem;
+  border-radius:999px;
+  font-family:var(--fonte-titulo);
+  font-size:var(--texto-xs);
+  font-weight:bold;
+  line-height:1.2;
+  vertical-align:middle;
+}
+
+.badge-voluntariado{
+  background:#e8f3ee;
+  color:#164b3a;
+  border:1px solid #8db9aa;
+}
+
+.badge-educacao{
+  background:#fff5d6;
+  color:#6d4c00;
+  border:1px solid #e0a526;
+}
+
+.badge-doacao{
+  background:#f4e9f7;
+  color:#6b2c75;
+  border:1px solid #b98bc2;
+}
+
+.badge-sucesso{
+  background:var(--cor-sucesso-fundo);
+  color:var(--cor-sucesso);
+  border:1px solid var(--cor-sucesso);
+}
+
+.alerta{
+  display:flex;
+  align-items:flex-start;
+  gap:var(--espaco-2);
+  margin:var(--espaco-4) 0;
+  padding:var(--espaco-3) var(--espaco-4);
+  border-radius:var(--raio);
+  border-left:4px solid;
+}
+
+.alerta-info{
+  background:#eef6ff;
+  color:#173a5e;
+  border-color:#2f6fa8;
+}
+
+.toast{
+  position:fixed;
+  right:var(--espaco-4);
+  bottom:var(--espaco-4);
+  z-index:100;
+  display:flex;
+  align-items:flex-start;
+  gap:var(--espaco-3);
+  max-width:min(24rem,calc(100vw - 2rem));
+  padding:var(--espaco-4);
+  border-radius:var(--raio);
+  background:var(--cor-superficie);
+  color:var(--cor-texto);
+  box-shadow:0 .75rem 2rem rgba(0,0,0,.24);
+  border:1px solid var(--cor-borda);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(1rem);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s ease;
+}
+
+.toast.visivel{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+.toast-sucesso{border-left:5px solid var(--cor-sucesso)}
+.toast-icone{
+  display:grid;
+  place-items:center;
+  flex:0 0 2rem;
+  width:2rem;
+  height:2rem;
+  border-radius:50%;
+  background:var(--cor-sucesso);
+  color:#fff;
+  font-weight:bold;
+}
+.toast p{margin:.2rem 0 0}
+
+.modal-feedback{
+  width:min(34rem,calc(100vw - 2rem));
+  border:0;
+  border-radius:calc(var(--raio) * 2);
+  padding:0;
+  box-shadow:0 1rem 3rem rgba(0,0,0,.35);
+  background:var(--cor-superficie);
+  color:var(--cor-texto);
+}
+
+.modal-feedback::backdrop{
+  background:rgba(20,61,48,.62);
+}
+
+.modal-conteudo{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:var(--espaco-3);
+  padding:var(--espaco-6);
+}
+
+.modal-conteudo h2,
+.modal-conteudo p{margin:0}
+
 table{
   border-collapse:collapse;
   width:100%;
