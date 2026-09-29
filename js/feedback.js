@@ -1,48 +1,75 @@
-window.inicializarFeedback = function inicializarFeedback() {
-  const formVoluntario = document.querySelector("#form-voluntario");
-  const toastSucesso = document.querySelector("#toast-sucesso");
-  const modalSucesso = document.querySelector("#modal-sucesso");
-  const fecharModal = document.querySelector("#fechar-modal");
+const appFeedback = document.querySelector("#app");
 
-  if (!formVoluntario) return;
+let toastTimer;
 
-  let toastTimer;
+function mostrarToast() {
+  const toast = document.querySelector("#toast-sucesso");
+  if (!toast) return;
 
-  function mostrarToast() {
-    if (!toastSucesso) return;
+  clearTimeout(toastTimer);
+  toast.classList.add("visivel");
+  toast.setAttribute("aria-hidden", "false");
 
-    clearTimeout(toastTimer);
-    toastSucesso.classList.add("visivel");
-    toastSucesso.setAttribute("aria-hidden", "false");
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("visivel");
+    toast.setAttribute("aria-hidden", "true");
+  }, 4000);
+}
 
-    toastTimer = setTimeout(() => {
-      toastSucesso.classList.remove("visivel");
-      toastSucesso.setAttribute("aria-hidden", "true");
-    }, 4000);
+function atualizarEstadoCampo(campo) {
+  if (!(campo instanceof HTMLInputElement ||
+        campo instanceof HTMLSelectElement ||
+        campo instanceof HTMLTextAreaElement)) {
+    return;
   }
 
-  formVoluntario.addEventListener("submit", (event) => {
-    event.preventDefault();
+  if (!campo.closest("#form-voluntario")) return;
 
-    if (!formVoluntario.checkValidity()) {
-      formVoluntario.reportValidity();
-      return;
-    }
+  if (campo.validity.valid) {
+    campo.setAttribute("aria-invalid", "false");
+  } else {
+    campo.setAttribute("aria-invalid", "true");
+  }
+}
 
-    mostrarToast();
+/* Event delegation: os elementos do formulário são criados dinamicamente pela SPA. */
+appFeedback?.addEventListener("input", (event) => {
+  atualizarEstadoCampo(event.target);
+});
 
-    if (modalSucesso?.showModal) {
-      modalSucesso.showModal();
-    }
-  });
+appFeedback?.addEventListener("change", (event) => {
+  atualizarEstadoCampo(event.target);
+});
 
-  fecharModal?.addEventListener("click", () => {
-    modalSucesso?.close();
-  });
+appFeedback?.addEventListener("submit", (event) => {
+  const form = event.target.closest("#form-voluntario");
+  if (!form) return;
 
-  modalSucesso?.addEventListener("click", (event) => {
-    if (event.target === modalSucesso) {
-      modalSucesso.close();
-    }
-  });
-};
+  event.preventDefault();
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    form.querySelector(":invalid")?.focus();
+    return;
+  }
+
+  mostrarToast();
+
+  const modal = document.querySelector("#modal-sucesso");
+  if (modal?.showModal) {
+    modal.showModal();
+  }
+});
+
+appFeedback?.addEventListener("click", (event) => {
+  const modal = document.querySelector("#modal-sucesso");
+
+  if (event.target.closest("#fechar-modal")) {
+    modal?.close();
+    return;
+  }
+
+  if (event.target === modal) {
+    modal.close();
+  }
+});
