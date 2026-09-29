@@ -14,6 +14,7 @@
   --cor-sucesso-fundo:#edf7ee;
   --cor-foco:#f2c94c;
   --cor-desabilitado:#777777;
+  --cor-sobre-primaria:#ffffff;
 
   /* Design System — tipografia */
   --fonte-titulo:"Trebuchet MS",Verdana,sans-serif;
@@ -39,6 +40,44 @@
   /* Grid System — 12 colunas */
   --grid-colunas:12;
   --grid-gap:var(--espaco-4);
+}
+
+:root[data-tema="escuro"]{
+  color-scheme:dark;
+  --cor-primaria:#7dd3b0;
+  --cor-primaria-escura:#0b2f26;
+  --cor-secundaria:#ffd166;
+  --cor-fundo:#121212;
+  --cor-superficie:#1e1e1e;
+  --cor-texto:#f5f5f5;
+  --cor-texto-suave:#d6d6d6;
+  --cor-borda:#8a8a8a;
+  --cor-perigo:#ff8a80;
+  --cor-perigo-fundo:#3a1414;
+  --cor-sucesso:#81c784;
+  --cor-sucesso-fundo:#15351f;
+  --cor-foco:#ffdf5d;
+  --cor-desabilitado:#b0b0b0;
+  --cor-sobre-primaria:#0b1f18;
+}
+
+:root[data-tema="alto-contraste"]{
+  color-scheme:dark;
+  --cor-primaria:#ffff00;
+  --cor-primaria-escura:#000000;
+  --cor-secundaria:#00ffff;
+  --cor-fundo:#000000;
+  --cor-superficie:#000000;
+  --cor-texto:#ffffff;
+  --cor-texto-suave:#ffffff;
+  --cor-borda:#ffffff;
+  --cor-perigo:#ff8080;
+  --cor-perigo-fundo:#000000;
+  --cor-sucesso:#7cff7c;
+  --cor-sucesso-fundo:#000000;
+  --cor-foco:#ffff00;
+  --cor-desabilitado:#d0d0d0;
+  --cor-sobre-primaria:#000000;
 }
 
 *{box-sizing:border-box}
@@ -91,6 +130,34 @@ header{
 
 header h1{margin:0 0 var(--espaco-1)}
 header p{margin:0 0 var(--espaco-4)}
+
+.tema-controles{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--espaco-2);
+  margin-top:var(--espaco-2);
+}
+
+.tema-botao{
+  min-height:2.5rem;
+  padding:var(--espaco-2) var(--espaco-3);
+  background:transparent;
+  color:var(--cor-superficie);
+  border:2px solid currentColor;
+  box-shadow:none;
+}
+
+.tema-botao:hover:not(:disabled){
+  background:rgba(255,255,255,.12);
+  box-shadow:none;
+  transform:none;
+}
+
+.tema-botao[aria-pressed="true"]{
+  background:var(--cor-secundaria);
+  color:#111111;
+  border-color:var(--cor-secundaria);
+}
 
 .navegacao{
   position:relative;
@@ -434,7 +501,7 @@ th{
   justify-content:center;
   gap:var(--espaco-2);
   background:var(--cor-primaria);
-  color:var(--cor-superficie);
+  color:var(--cor-sobre-primaria);
   border:0;
   padding:var(--espaco-3) var(--espaco-6);
   border-radius:var(--raio);
@@ -799,4 +866,88 @@ footer{
   main{padding-top:var(--espaco-12)}
   header{padding:var(--espaco-8) var(--espaco-12)}
   footer{padding:var(--espaco-6)}
+}
+
+
+/* Ajustes específicos dos perfis cromáticos */
+:root[data-tema="escuro"] .badge-voluntariado,
+:root[data-tema="escuro"] .badge-educacao,
+:root[data-tema="escuro"] .badge-doacao,
+:root[data-tema="escuro"] .badge-sucesso{
+  background:#26332f;
+  color:#f5f5f5;
+  border-color:#9fd8c4;
+}
+
+:root[data-tema="escuro"] .alerta-info{
+  background:#152b3b;
+  color:#eaf6ff;
+  border-color:#7cc7ff;
+}
+
+:root[data-tema="escuro"] input[type=text],
+:root[data-tema="escuro"] input[type=email],
+:root[data-tema="escuro"] input[type=tel],
+:root[data-tema="escuro"] input[type=date],
+:root[data-tema="escuro"] select,
+:root[data-tema="escuro"] textarea{
+  border-color:#9a9a9a;
+}
+
+:root[data-tema="alto-contraste"] body,
+:root[data-tema="alto-contraste"] .card,
+:root[data-tema="alto-contraste"] fieldset,
+:root[data-tema="alto-contraste"] table,
+:root[data-tema="alto-contraste"] .toast,
+:root[data-tema="alto-contraste"] .modal-feedback{
+  background:#000000;
+  color:#ffffff;
+}
+
+:root[data-tema="alto-contraste"] h2,
+:root[data-tema="alto-contraste"] legend{
+  color:#ffff00;
+}
+
+:root[data-tema="alto-contraste"] .badge,
+:root[data-tema="alto-contraste"] .alerta-info{
+  background:#000000;
+  color:#ffffff;
+  border-color:#00ffff;
+}
+
+:root[data-tema="alto-contraste"] input[type=text],
+:root[data-tema="alto-contraste"] input[type=email],
+:root[data-tema="alto-contraste"] input[type=tel],
+:root[data-tema="alto-contraste"] input[type=date],
+:root[data-tema="alto-contraste"] select,
+:root[data-tema="alto-contraste"] textarea{
+  background:#000000;
+  color:#ffffff;
+  border-color:#ffffff;
+}
+
+:root[data-tema="alto-contraste"] .campo-invalido{
+  background:#000000 !important;
+}
+
+:root[data-tema="alto-contraste"] .campo-valido{
+  background:#000000 !important;
+}
+
+:root[data-tema="alto-contraste"] .tema-botao[aria-pressed="true"]{
+  background:#ffff00;
+  color:#000000;
+  border-color:#ffff00;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+    transition-duration:.01ms !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+  }
 }
