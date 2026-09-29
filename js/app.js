@@ -1,4 +1,11 @@
+import { inicializarMenu } from "./menu.js";
+import { inicializarFeedback, restaurarPreferenciasVoluntariado } from "./feedback.js";
+import { lerEstadoApp, salvarEstadoApp } from "./storage.js";
+
 const app = document.querySelector("#app");
+
+inicializarMenu();
+inicializarFeedback(app);
 
 const projetosDinamicos = [
   {
@@ -283,10 +290,10 @@ function renderizar() {
   document.title = conteudo.titulo;
   atualizarNavegacao(pagina);
 
-  window.storageApp?.salvar({ ultimaRota: location.hash || "#/inicio" });
+  salvarEstadoApp({ ultimaRota: location.hash || "#/inicio" });
 
   if (pagina === "cadastro") {
-    window.restaurarPreferenciasVoluntariado?.();
+    restaurarPreferenciasVoluntariado();
   }
 
   requestAnimationFrame(() => {
@@ -317,7 +324,7 @@ document.addEventListener("click", (event) => {
 window.addEventListener("hashchange", renderizar);
 
 if (!location.hash) {
-  const estadoSalvo = window.storageApp?.ler();
+  const estadoSalvo = lerEstadoApp();
   const rotaSalva = estadoSalvo?.ultimaRota || "#/inicio";
   location.replace(rotaSalva);
 } else {
