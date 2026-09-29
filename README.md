@@ -17,6 +17,7 @@ Single Page Application (SPA) institucional em HTML5, CSS e JavaScript, organiza
 │   └── voluntarios.webp
 └── js/
     ├── app.js
+    ├── storage.js
     ├── menu.js
     └── feedback.js
 ```
@@ -24,7 +25,8 @@ Single Page Application (SPA) institucional em HTML5, CSS e JavaScript, organiza
 ## Arquitetura
 
 - `html/index.html`: documento-base da SPA, contendo cabeçalho, navegação, contêiner principal `#app` e rodapé.
-- `js/app.js`: roteamento por hash, templates das telas e renderização dinâmica no DOM.
+- `js/app.js`: roteamento por hash, templates das telas, renderização dinâmica no DOM e restauração da última rota visitada.
+- `js/storage.js`: persistência do estado da aplicação com `localStorage`, `JSON.stringify()` e `JSON.parse()`.
 - `js/menu.js`: comportamento do menu hamburger e dropdown.
 - `js/feedback.js`: inicialização do formulário, toast e modal após cada renderização da rota de cadastro.
 - `css/estilo.css`: Design System, Grid de 12 colunas, Flexbox, responsividade, cards e estados interativos.
@@ -45,3 +47,8 @@ A troca de rota dispara `hashchange`. A função `renderizar()` interpreta a rot
 ## Como visualizar
 
 Abra `html/index.html` no navegador.
+
+
+## Persistência local
+
+O projeto mantém no `localStorage` um objeto de estado com a última rota acessada e preferências não sensíveis do formulário de voluntariado (`estado`, `turno` e `áreas de interesse`). Dados pessoais como CPF, telefone, e-mail, endereço e data de nascimento não são gravados localmente. O objeto é serializado com `JSON.stringify()` e recuperado com `JSON.parse()`.
