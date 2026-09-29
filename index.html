@@ -10,10 +10,24 @@
   <header>
     <h1>ONG Esperança Viva</h1>
     <p>Transformando vidas por meio da educação e da solidariedade.</p>
-    <nav aria-label="Menu principal">
-      <ul>
+    <nav class="navegacao" aria-label="Menu principal">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="icone-hamburguer" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="texto-menu">Menu</span>
+      </button>
+
+      <ul id="menu-principal" class="menu-principal">
         <li><a href="index.html" aria-current="page">Início</a></li>
-        <li><a href="projetos.html">Projetos</a></li>
+        <li class="tem-submenu">
+          <button class="submenu-toggle" type="button" aria-expanded="false">
+            Projetos <span aria-hidden="true">▾</span>
+          </button>
+          <ul class="submenu" aria-label="Submenu Projetos">
+            <li><a href="projetos.html">Visão geral</a></li>
+            <li><a href="projetos.html#voluntariado">Voluntariado</a></li>
+            <li><a href="projetos.html#doacoes">Campanhas de doação</a></li>
+          </ul>
+        </li>
         <li><a href="cadastro.html">Seja voluntário</a></li>
       </ul>
     </nav>
@@ -53,5 +67,6 @@
   <footer>
     <p>&copy; 2026 ONG Esperança Viva. Todos os direitos reservados.</p>
   </footer>
+  <script src="js/menu.js" defer></script>
 </body>
 </html>
