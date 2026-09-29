@@ -283,10 +283,6 @@ function renderizar() {
   document.title = conteudo.titulo;
   atualizarNavegacao(pagina);
 
-  if (pagina === "cadastro" && typeof window.inicializarFeedback === "function") {
-    window.inicializarFeedback();
-  }
-
   requestAnimationFrame(() => {
     if (ancora) {
       document.getElementById(ancora)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -296,6 +292,21 @@ function renderizar() {
     }
   });
 }
+
+document.addEventListener("click", (event) => {
+  const linkSpa = event.target.closest('a[href^="#/"]');
+  if (!linkSpa) return;
+
+  event.preventDefault();
+
+  const destino = linkSpa.getAttribute("href");
+
+  if (location.hash === destino) {
+    renderizar();
+  } else {
+    location.hash = destino;
+  }
+});
 
 window.addEventListener("hashchange", renderizar);
 
