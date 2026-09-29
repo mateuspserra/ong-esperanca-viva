@@ -1,6 +1,6 @@
 # ONG Esperança Viva
 
-Site institucional em HTML5, CSS e JavaScript, organizado com separação de responsabilidades.
+Single Page Application (SPA) institucional em HTML5, CSS e JavaScript, organizada com separação de responsabilidades.
 
 ## Estrutura de diretórios
 
@@ -8,9 +8,7 @@ Site institucional em HTML5, CSS e JavaScript, organizado com separação de res
 /
 ├── README.md
 ├── html/
-│   ├── index.html
-│   ├── projetos.html
-│   └── cadastro.html
+│   └── index.html
 ├── css/
 │   └── estilo.css
 ├── imagens/
@@ -18,27 +16,31 @@ Site institucional em HTML5, CSS e JavaScript, organizado com separação de res
 │   ├── voluntarios.jpg
 │   └── voluntarios.webp
 └── js/
+    ├── app.js
     ├── menu.js
     └── feedback.js
 ```
 
-## Responsabilidades
+## Arquitetura
 
-- `html/`: estrutura semântica e conteúdo das páginas.
-- `css/`: Design System, Grid de 12 colunas, Flexbox, responsividade e estados visuais.
-- `imagens/`: recursos visuais do projeto em formatos otimizados.
-- `js/`: interações do menu responsivo, dropdown, toast e modal.
+- `html/index.html`: documento-base da SPA, contendo cabeçalho, navegação, contêiner principal `#app` e rodapé.
+- `js/app.js`: roteamento por hash, templates das telas e renderização dinâmica no DOM.
+- `js/menu.js`: comportamento do menu hamburger e dropdown.
+- `js/feedback.js`: inicialização do formulário, toast e modal após cada renderização da rota de cadastro.
+- `css/estilo.css`: Design System, Grid de 12 colunas, Flexbox, responsividade, cards e estados interativos.
+- `imagens/`: recursos visuais otimizados.
 
-## Recursos aplicados
+## SPA
 
-- HTML5 semântico com `header`, `nav`, `main`, `section`, `article`, `footer` e `address`.
-- CSS Grid de 12 colunas e cinco breakpoints responsivos.
-- Flexbox em componentes internos.
-- Design System com cores, tipografia e espaçamentos padronizados.
-- Menu dropdown e hamburger responsivo.
-- Estados `hover`, `focus`, `active`, `disabled`, `valid` e `invalid`.
-- Badges, alertas, toast e modal.
-- Formulário com validação nativa por `required`, `type` e `pattern`.
+A aplicação usa rotas por hash, como:
+
+- `#/inicio`
+- `#/projetos`
+- `#/projetos/voluntariado`
+- `#/projetos/doacoes`
+- `#/cadastro`
+
+A troca de rota dispara `hashchange`. A função `renderizar()` interpreta a rota, limpa o contêiner `#app` com `replaceChildren()` e injeta o novo fragmento HTML com `insertAdjacentHTML()`. Dessa forma, o documento não é recarregado a cada navegação.
 
 ## Como visualizar
 
