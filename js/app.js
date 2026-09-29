@@ -82,8 +82,19 @@ const paginas = {
       <section id="quem-somos">
         <h2>Quem somos</h2>
         <picture>
-          <source srcset="../imagens/voluntarios.webp" type="image/webp">
-          <img src="../imagens/voluntarios.jpg" alt="Mãos de pessoas de diferentes tons de pele formando um círculo sobre um gramado, com o céu azul ao fundo" width="320" height="322">
+          <source
+            srcset="../imagens/voluntarios.webp 320w"
+            sizes="(max-width: 480px) 90vw, 320px"
+            type="image/webp">
+          <img
+            src="../imagens/voluntarios.jpg"
+            srcset="../imagens/voluntarios.jpg 320w"
+            sizes="(max-width: 480px) 90vw, 320px"
+            alt="Mãos de pessoas de diferentes tons de pele formando um círculo sobre um gramado, com o céu azul ao fundo"
+            width="320"
+            height="322"
+            loading="lazy"
+            decoding="async">
         </picture>
         <p>Somos uma organização sem fins lucrativos que atua desde 2015 apoiando crianças e famílias em situação de vulnerabilidade.</p>
       </section>
