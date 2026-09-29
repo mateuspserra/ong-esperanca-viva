@@ -46,7 +46,15 @@ A troca de rota dispara `hashchange`. A função `renderizar()` interpreta a rot
 
 ## Como visualizar
 
-Abra `html/index.html` no navegador.
+Como o projeto utiliza ES6 Modules (`import`/`export`), execute-o por um servidor HTTP local em vez de abrir o HTML diretamente com `file://`.
+
+Exemplo com Python, na raiz do projeto:
+
+```bash
+python -m http.server 8000
+```
+
+Depois acesse `http://localhost:8000/html/` no navegador. Isso evita bloqueios de origem/CORS aplicados por navegadores a módulos ES6 carregados diretamente do sistema de arquivos.
 
 
 ## Persistência local
@@ -75,3 +83,8 @@ import { lerEstadoApp, salvarEstadoApp } from "./storage.js";
 - `app.js` coordena roteamento, templates, renderização e integração entre os módulos.
 
 Essa separação reduz dependências globais e evita misturar navegação, formulário e persistência no mesmo arquivo.
+
+
+## Registro de validação e depuração
+
+Durante a evolução da SPA foram tratados pontos típicos de depuração: listeners ligados a elementos dinâmicos foram substituídos por event delegation no `#app`; links internos usam `preventDefault()` e roteamento por hash para evitar recarga do documento; leitura e gravação do `localStorage` são protegidas por `try/catch` e estado padrão; a validação de datas testa a disponibilidade do Day.js e possui fallback nativo; e a execução local passou a exigir servidor HTTP por causa dos ES6 Modules.
