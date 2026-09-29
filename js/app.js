@@ -283,6 +283,12 @@ function renderizar() {
   document.title = conteudo.titulo;
   atualizarNavegacao(pagina);
 
+  window.storageApp?.salvar({ ultimaRota: location.hash || "#/inicio" });
+
+  if (pagina === "cadastro") {
+    window.restaurarPreferenciasVoluntariado?.();
+  }
+
   requestAnimationFrame(() => {
     if (ancora) {
       document.getElementById(ancora)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -311,7 +317,9 @@ document.addEventListener("click", (event) => {
 window.addEventListener("hashchange", renderizar);
 
 if (!location.hash) {
-  location.replace("#/inicio");
+  const estadoSalvo = window.storageApp?.ler();
+  const rotaSalva = estadoSalvo?.ultimaRota || "#/inicio";
+  location.replace(rotaSalva);
 } else {
   renderizar();
 }
