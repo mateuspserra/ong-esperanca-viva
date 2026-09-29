@@ -71,28 +71,125 @@ header{
 header h1{margin:0 0 var(--espaco-1)}
 header p{margin:0 0 var(--espaco-4)}
 
-nav ul{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-flow:row wrap;
-  align-items:center;
-  justify-content:flex-start;
-  gap:var(--espaco-4);
+.navegacao{
+  position:relative;
+  width:100%;
 }
 
-nav a{
+.menu-toggle,
+.submenu-toggle{
+  font-family:var(--fonte-titulo);
+}
+
+.menu-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--espaco-2);
+  min-height:2.75rem;
+  background:transparent;
+  color:var(--cor-superficie);
+  border:2px solid var(--cor-superficie);
+  padding:var(--espaco-2) var(--espaco-3);
+  border-radius:var(--raio);
+  cursor:pointer;
+}
+
+.icone-hamburguer{
+  width:1.4rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.25rem;
+}
+
+.icone-hamburguer span{
+  display:block;
+  height:2px;
+  width:100%;
+  background:currentColor;
+  transition:transform .25s ease,opacity .25s ease;
+}
+
+.navegacao.menu-aberto .icone-hamburguer span:nth-child(1){
+  transform:translateY(6px) rotate(45deg);
+}
+
+.navegacao.menu-aberto .icone-hamburguer span:nth-child(2){opacity:0}
+
+.navegacao.menu-aberto .icone-hamburguer span:nth-child(3){
+  transform:translateY(-6px) rotate(-45deg);
+}
+
+.menu-principal{
+  list-style:none;
+  margin:var(--espaco-2) 0 0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:var(--espaco-1);
+  max-height:0;
+  opacity:0;
+  visibility:hidden;
+  overflow:hidden;
+  transition:max-height .3s ease,opacity .25s ease,visibility .25s ease;
+}
+
+.navegacao.menu-aberto .menu-principal{
+  max-height:32rem;
+  opacity:1;
+  visibility:visible;
+}
+
+.menu-principal > li{position:relative}
+
+.menu-principal a,
+.submenu-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   color:var(--cor-superficie);
   font-weight:bold;
   text-decoration:none;
-  padding:var(--espaco-1) 0;
+  background:transparent;
+  border:0;
   border-bottom:3px solid transparent;
+  padding:var(--espaco-2) var(--espaco-1);
+  cursor:pointer;
+  text-align:left;
 }
 
-nav a:hover,
-nav a:focus,
-nav a[aria-current="page"]{border-bottom-color:var(--cor-secundaria)}
+.menu-principal a:hover,
+.menu-principal a:focus,
+.submenu-toggle:hover,
+.submenu-toggle:focus,
+.menu-principal a[aria-current="page"]{
+  border-bottom-color:var(--cor-secundaria);
+}
+
+.submenu{
+  list-style:none;
+  margin:0;
+  padding:0 0 0 var(--espaco-4);
+  max-height:0;
+  opacity:0;
+  visibility:hidden;
+  overflow:hidden;
+  transition:max-height .3s ease,opacity .25s ease,visibility .25s ease;
+}
+
+.tem-submenu.submenu-aberto > .submenu{
+  max-height:14rem;
+  opacity:1;
+  visibility:visible;
+}
+
+.submenu a{
+  font-weight:normal;
+  padding:var(--espaco-2);
+}
+
 
 main{
   grid-column:1 / -1;
@@ -286,7 +383,6 @@ footer{
 /* Breakpoint 1 — celulares maiores */
 @media(min-width:480px){
   main{padding:var(--espaco-6)}
-  nav ul{gap:var(--espaco-6)}
 }
 
 /* Breakpoint 2 — tablets compactos */
@@ -304,6 +400,66 @@ footer{
 /* Breakpoint 3 — tablets e telas intermediárias */
 @media(min-width:768px){
   :root{--grid-gap:var(--espaco-6)}
+
+  .menu-toggle{display:none}
+
+  .menu-principal{
+    margin:0;
+    max-height:none;
+    opacity:1;
+    visibility:visible;
+    overflow:visible;
+    flex-direction:row;
+    align-items:center;
+    gap:var(--espaco-6);
+  }
+
+  .menu-principal > li > a,
+  .submenu-toggle{
+    width:auto;
+    padding:var(--espaco-1) 0;
+  }
+
+  .submenu{
+    position:absolute;
+    z-index:20;
+    top:calc(100% + var(--espaco-2));
+    left:0;
+    min-width:14rem;
+    margin:0;
+    padding:var(--espaco-2);
+    background:var(--cor-primaria-escura);
+    border:1px solid var(--cor-borda);
+    border-radius:var(--raio);
+    box-shadow:0 0.5rem 1.25rem rgba(0,0,0,.22);
+    max-height:none;
+    opacity:0;
+    visibility:hidden;
+    overflow:visible;
+    transform:translateY(-0.4rem);
+    transition:opacity .2s ease,transform .2s ease,visibility .2s ease;
+  }
+
+  .tem-submenu:hover > .submenu,
+  .tem-submenu:focus-within > .submenu,
+  .tem-submenu.submenu-aberto > .submenu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  .submenu a{
+    width:100%;
+    padding:var(--espaco-2) var(--espaco-3);
+    border-bottom:0;
+  }
+
+  .submenu a:hover,
+  .submenu a:focus{
+    background:var(--cor-primaria);
+    border-radius:var(--raio);
+  }
+
   main{padding:var(--espaco-8) var(--espaco-6)}
   section img{max-width:30rem}
 }
