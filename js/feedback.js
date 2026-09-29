@@ -150,6 +150,20 @@ function resultadoValidacao(campo) {
       return { valido: false, mensagem: "Informe a data de nascimento." };
     }
 
+    if (window.dayjs) {
+      const dataNascimento = window.dayjs(valor);
+      const hoje = window.dayjs();
+
+      if (!dataNascimento.isValid()) {
+        return { valido: false, mensagem: "Informe uma data de nascimento válida." };
+      }
+
+      return dataNascimento.isAfter(hoje, "day")
+        ? { valido: false, mensagem: "A data de nascimento não pode estar no futuro." }
+        : { valido: true, mensagem: "" };
+    }
+
+    /* Fallback caso o CDN esteja indisponível. */
     const data = new Date(`${valor}T00:00:00`);
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
