@@ -178,3 +178,14 @@ A minificação deve ser validada após cada alteração funcional, comparando o
 A imagem principal é fornecida em JPEG como fallback e WebP como formato preferencial por meio de `<picture>`. O JPEG possui 15.449 bytes e o WebP 10.278 bytes, uma redução de aproximadamente 33,5% para o mesmo recurso. Com o logo, o payload local de imagens cai de cerca de 16,8 KB para 11,6 KB em navegadores com WebP, redução aproximada de 30,8%.
 
 A marcação utiliza `srcset`, `sizes`, dimensões intrínsecas `width`/`height`, `loading="lazy"` e `decoding="async"`. O CSS mantém `max-width:100%` e `height:auto`, evitando distorções e ajustando a imagem ao viewport.
+
+
+## Deploy com GitHub Pages
+
+A plataforma escolhida para publicação é o **GitHub Pages**, por estar integrada ao mesmo repositório utilizado para versionamento e por atender adequadamente a uma SPA estática construída com Vite.
+
+O workflow `.github/workflows/deploy-pages.yml` implementa CI/CD em cada `push` na branch `main`: checkout do código, configuração do Node.js 22, `npm install`, `npm run build`, upload do diretório `dist/` como artefato e publicação com `actions/deploy-pages`.
+
+O build de produção foi validado com sucesso no GitHub Actions. Para concluir a primeira publicação, o GitHub Pages precisa ser habilitado uma única vez em **Settings > Pages**, selecionando **GitHub Actions** como Source. Depois disso, novos pushes na `main` passam a executar automaticamente o ciclo completo de build e deploy.
+
+URL prevista após a ativação: `https://mateuspserra.github.io/ong-esperanca-viva/`.
